@@ -30,16 +30,15 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
 
     Route::post('/login', [AdminLoginController::class, 'login']);
+    Route::post('/store', [AdminController::class, 'store'])->name('store');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
-});
+
 
 
 

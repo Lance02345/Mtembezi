@@ -14,7 +14,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = RouteServiceProvider::HOME; // Change this to the desired redirect path after registration
+    protected $redirectTo = '/'; // Change this to the desired redirect path after registration
 
     public function __construct()
     {
@@ -27,7 +27,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            
+
         ]);
     }
 

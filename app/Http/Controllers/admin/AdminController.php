@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 
 
-class PostController extends Controller
+
+class AdminController extends Controller
 {
     public function __construct()
     {
@@ -68,7 +70,7 @@ class PostController extends Controller
         // Save the post with image paths
         $post->save();
     
-        return redirect()->route('posts.index')->with('success', 'Post created successfully');
+        return redirect()->route('index')->with('success', 'Post created successfully');
     }
 
     // Add other methods for editing, updating, and deleting posts as needed

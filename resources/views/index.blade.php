@@ -24,7 +24,7 @@
                             <div class="card-header">Admin Panel</div>
                             <div class="card-body">
                                 <h5 class="card-title">New Post</h5>
-                                <form action="{{ route('blog.store') }}" method="post">
+                                <form action="{{ route('admin.store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label for="title">Title</label>
@@ -33,14 +33,15 @@
                                     <div class="form-group">
                                         <label for="content">Content</label>
                                         <textarea name="description"  class="description ckeditor form-control" name="wysiwyg-editor">
-            {{ old('description')}}
-          </textarea>
+                                            {{ old('description')}}
+                                        </textarea>
 
-          @error('description')
-            <span class="invalid"  role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-          @enderror                      </div>
+                                     @error('description')
+                                     <span class="invalid"  role="alert">
+                                     <strong>{{ $message }}</strong>
+                                     </span>
+                                     @enderror         
+                                  </div>
                                     <div class="form-group">
                                         <label for="published_at">Publication Date</label>
                                         <input type="date" class="form-control" id="published_at" name="published_at" required>
@@ -50,16 +51,7 @@
                             </div>
                         </div>
 
-                        {{-- Dropdown for admin actions --}}
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle mt-3" type="button" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin Actions
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                                <a class="dropdown-item" href="">View Admin Posts</a>
-                                {{-- Add other admin actions as needed --}}
-                            </div>
-                        </div>
+
                     @endif
                 @endauth
             </div>

@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 class BlogController extends Controller
 {
     public function index()
@@ -14,7 +14,6 @@ class BlogController extends Controller
 
         return view('index', ['posts' => $posts]);
     }
-
 
 public function store(Request $request)
 {
@@ -58,4 +57,6 @@ public function store(Request $request)
 
     return redirect()->route('posts.index')->with('success', 'Post created successfully');
 }
+
+// Add other methods for editing, updating, and deleting posts as needed
 }
