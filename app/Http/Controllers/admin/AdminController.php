@@ -27,7 +27,7 @@ class AdminController extends Controller
     public function create()
     {
         // Display the form for creating a new post
-        return view('blog.create');
+        return view('admins.create_blog');
     }
 
     public function store(Request $request)
@@ -72,6 +72,17 @@ class AdminController extends Controller
     
         return redirect()->route('index')->with('success', 'Post created successfully');
     }
+
+    public function myblogs()
+{
+    // fetch the authenticated user
+    $user = auth()->user();
+
+    // Fetch all the blogs for the authenticated user with only title and publication date
+    $blogs = $user->posts()->select('title', 'published_at')->get();
+
+    return view('admins.myblogs', compact('blogs'));
+}
 
     // Add other methods for editing, updating, and deleting posts as needed
 }

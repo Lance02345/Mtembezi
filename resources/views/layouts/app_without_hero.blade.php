@@ -1,4 +1,4 @@
-<!-- resources/views/layouts/app.blade.php -->
+<!-- resources/views/layouts/app_without_hero.blade.php -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,15 +24,7 @@
         .navbar-toggler-icon {
             background-color: white;
         }
-
-        .hero-section {
-            background: url('{{ asset('storage/images/hero1.jpg') }}') center/cover no-repeat;
-            color: white; /* Text color on the hero section */
-            padding: 100px 0; /* Adjust padding as needed */
-        }
     </style>
-
-    
 </head>
 <body>
 
@@ -81,7 +73,7 @@
             </div>
         </li>
         @else
-            <!-- Display login and sign-up links if user is not logged in -->
+            <!-- Display login and sign-up links if the user is not logged in -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
             </li>
@@ -91,10 +83,6 @@
         @endif
     </div>
 </nav>
-<div class="hero-section text-center">
-    <h1>Welcome to <span style="color:#d4af37">Msa</span><span>firi</span> Blogs</h1>
-    <p>Discover exciting stories and adventures of travellers shared by our community.</p>
-</div>
 
 <div class="container mt-4">
     @yield('content')

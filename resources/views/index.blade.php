@@ -2,61 +2,47 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>Msafiri Blogs</h2>
-
-                {{-- Display all blog posts for all users --}}
-                @foreach($posts as $post)
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ $post->title }}</h3>
-                            <p class="card-text">{{ $post->content }}</p>
-                            <p class="card-text"><small class="text-muted">Published on {{ $post->published_at->format('F d, Y') }}</small></p>
-                        </div>
-                    </div>
-                @endforeach
-
-                {{-- Admin panel for posting --}}
-                @auth
-                    @if(auth()->user()->isAdmin())
-                        <div class="card">
-                            <div class="card-header">Admin Panel</div>
-                            <div class="card-body">
-                                <h5 class="card-title">New Post</h5>
-                                <form action="{{ route('admin.store') }}" method="post">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="title">Title</label>
-                                        <input type="text" class="form-control" id="title" name="title" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="content">Content</label>
-                                        <textarea name="description"  class="description ckeditor form-control" name="wysiwyg-editor">
-                                            {{ old('description')}}
-                                        </textarea>
-
-                                     @error('description')
-                                     <span class="invalid"  role="alert">
-                                     <strong>{{ $message }}</strong>
-                                     </span>
-                                     @enderror         
-                                  </div>
-                                    <div class="form-group">
-                                        <label for="published_at">Publication Date</label>
-                                        <input type="date" class="form-control" id="published_at" name="published_at" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Post</button>
-                                </form>
+    <div class="row">
+        @foreach($posts as $post)
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ $post->title }}</h3> 
+                        
+                        <!-- Check if images exist before rendering the carousel -->
+                        @if ($post->image_1 || $post->image_2 || $post->image_3 || $post->image_4 || $post->image_5)
+                            <div id="carousel{{ $post->id }}" class="carousel slide" data-ride="carousel" style="height: 300px;">
+                                <div class="carousel-inner" style="height: 100%;">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($post->{"image_$i"})
+                                            <div class="carousel-item{{ $i === 1 ? ' active' : '' }}" style="height: 100%;">
+                                                <img src="{{ asset($post->{"image_$i"}) }}" class="d-block w-100 h-100" alt="Image {{ $i }}" style="object-fit: cover;">
+                                            </div>
+                                        @endif
+                                    @endfor
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel{{ $post->id }}" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel{{ $post->id }}" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
-                        </div>
+                        @endif
 
+                        <!-- Strip tags to make sure it displays exactly what the user input -->
+                        <p class="card-text">{!! $post->content !!}</p>
 
-                    @endif
-                @endauth
+                        <!-- Fetch publication date and the name of the user who posted the blog -->                     
+                        <p class="card-text"><small class="text-muted">Published on {{ $post->published_at->format('F d, Y') }}  - {{ $post->user->name }}</small></p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
             </div>
 
-            {{-- Add your other columns or sections here --}}
         </div>
     </div>
 @endsection

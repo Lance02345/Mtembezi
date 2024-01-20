@@ -27,13 +27,17 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 
+Route::group(['middleware' => 'auth'], function () {
 
+    
+});
 
 
 Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
 
-    Route::post('/login', [AdminLoginController::class, 'login']);
+    Route::get('/add-blog', [AdminController::class, 'create'])->name('createBlog');
     Route::post('/store', [AdminController::class, 'store'])->name('store');
+    Route::get('/myblogs', [AdminController::class, 'myblogs'])->name('myblogs');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
