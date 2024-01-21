@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center"> <!-- Added justify-content-center to center the column -->
+    <div class="row justify-content-center"> 
         <div class="col-md-8">
             <h2>Msafiri Blogs</h2>
             <div class="card">

@@ -10,7 +10,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ Auth::user()->name }}</h5>
                         
-                        <!-- Fetch and display the user's avatar from the database -->
+                        <!-- Fetch and display the user's avatar -->
                         <img src="{{ asset(Auth::user()->avatar ? Auth::user()->avatar : 'storage/images/default_avatar.png') }}" alt="User Avatar" class="img-fluid rounded-circle" style="max-width: 100px;">
 
                         <p class="card-text"><strong>Role:</strong> {{ Auth::user()->role }}</p>
@@ -19,7 +19,7 @@
                         <p class="card-text"><strong>Email:</strong> {{ Auth::user()->email }}</p>
                         <p class="card-text"><strong>Phone Number:</strong> {{ Auth::user()->phone_number ?? 'Not provided' }}</p>
 
-                        <!-- Calculate and display the time since joining -->
+                        <!-- Calculate and display the time snce joining -->
                         @php
                             $joinDate = Auth::user()->created_at;
                             $timeSinceJoining = $joinDate->diffForHumans();

@@ -21,7 +21,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.login'); // You can create a custom login view if needed
+        return view('auth.login'); 
     }
 
     protected function authenticated(Request $request, $user)

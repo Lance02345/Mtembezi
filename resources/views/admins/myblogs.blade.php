@@ -8,7 +8,7 @@
         <div class="card mb-4">
             <div class="card-body text-center">
                 <h5 class="card-title">{{ Auth::user()->name }}</h5>
-                <img src="{{ asset('storage/images/traveller_2517614.png')}}" alt="User Avatar" class="img-fluid rounded-circle" style="max-width: 100px;">
+                <img src="{{ asset(Auth::user()->avatar ? Auth::user()->avatar : 'storage/images/default_avatar.png') }}" alt="User Avatar" class="img-fluid rounded-circle" style="max-width: 100px;">
                           <!-- Calculatio and display the time since joining -->
                @php
                   $joinDate = Auth::user()->created_at;

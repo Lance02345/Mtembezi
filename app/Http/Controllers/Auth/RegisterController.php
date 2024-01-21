@@ -14,7 +14,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/'; // Change this to the desired redirect path after registration
+    protected $redirectTo = '/'; 
 
     public function __construct()
     {

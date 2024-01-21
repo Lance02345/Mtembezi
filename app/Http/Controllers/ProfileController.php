@@ -1,13 +1,12 @@
 <?php
 
-// app/Http/Controllers/ProfileController.php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+//fetch the profile page
 class ProfileController extends Controller
 {
     public function edit()
@@ -16,6 +15,7 @@ class ProfileController extends Controller
         return view('profile', compact('user'));
     }
 
+    //edit if necessary
     public function update(Request $request)
     {
         $user = Auth::user();

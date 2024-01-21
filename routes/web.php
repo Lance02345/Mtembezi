@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\BlogRequestController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 
 
 
@@ -25,6 +26,10 @@ Route :: get ('/',  [BlogController::class, 'index'])->name('index');
 Route::get('/weather', 'WeatherController@getWeather')->name('weather');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+Route::get('/user/{user}/posts', [SearchController::class, 'adminPosts'])->name('adminPosts');
+
+
 
 
 

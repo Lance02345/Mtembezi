@@ -21,13 +21,7 @@ class AdminController extends Controller
         $this->middleware(['auth', 'admin']); // Apply 'admin' middleware to the entire controller
     }
 
-    public function index()
-    {
-        $posts = Post::all();
-
-        return view('index', ['posts' => $posts]);
-    }
-
+     //create blog post functions
     public function create()
     {
         // Display the form for creating a new post
@@ -55,7 +49,7 @@ class AdminController extends Controller
             'published_at' => $request->input('published_at'),
         ]);
     
-        // Save the post
+        // Save the post to establish the relationship between the user and the post in the database. 
         $user->posts()->save($post);
     
         for ($i = 1; $i <= 5; $i++) {
@@ -74,30 +68,27 @@ class AdminController extends Controller
         // Save the post with image paths
         $post->save();
     
-        return redirect()->route('index')->with('success', 'Post created successfully');
+        return redirect()->route('admin.myblogs')->with('success', 'Post created successfully');
     }
 
+
+    //see logged in user blogposts
     public function myblogs()
-{
+   {
     // fetch the authenticated user
     $user = auth()->user();
-
-
-
-    // Fetch all the blogs for the authenticated user with only title and publication date
+    // Fetch all the blogs for the authenticated user with id, title and publication date
     $blogs = $user->posts()->select('id', 'title', 'published_at')->get();
 
     return view('admins.myblogs', compact('blogs'));
-}
+    }
 
-// edit blog form
-public function edit($id)
-{
-    $post = Post::findOrFail($id);
-
-    // You can pass the $post variable to your view for editing
-    return view('admins.edit', compact('post'));
-}
+        // get edit blog form
+    public function edit($id)
+     {
+         $post = Post::findOrFail($id);
+         return view('admins.edit', compact('post'));
+    }
 
     // Handle the update action
     public function update(Request $request, $id)
@@ -149,14 +140,14 @@ public function edit($id)
         return redirect()->route('admin.myblogs')->with('success', 'Post updated successfully');
     }
 
-    //see blog requests from normal users
+    //see blog requests from normal users only for admin with id 1
     public function blogRequests()
-    {
-        // Fetch blog requests and pass them to the view
-        $blogRequests = BlogRequest::all();
+         {
+           // Fetch blog requests and pass them to the view
+              $blogRequests = BlogRequest::all();
         
-        return view('admins.blogRequests', compact('blogRequests'));
-    }
+              return view('admins.blogRequests', compact('blogRequests'));
+         }
 
     public function approveRequest($id)
     {
@@ -184,26 +175,24 @@ public function edit($id)
 
 
 
-//delete blog post
-public function destroy($id)
-{
-    $post = Post::findOrFail($id);
+            //delete blog post
+        public function destroy($id)
+            {
+             $post = Post::findOrFail($id);
 
-    // Delete the images associated with the post
-    for ($i = 1; $i <= 5; $i++) {
-        $imagePath = $post->{"image_$i"};
+                // Delete the images associated with the post
+            for ($i = 1; $i <= 5; $i++) {
+             $imagePath = $post->{"image_$i"};
 
-        if ($imagePath) {
-            // Assuming the images are stored in the 'public' disk
-            Storage::disk('public')->delete($imagePath);
-        }
-    }
+                 if ($imagePath) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+             }
 
-    // Delete the post
-    $post->delete();
+               // Delete the post
+             $post->delete();
 
-    // Redirect to the index page or wherever you want after deletion
-    return redirect()->route('admin.myblogs')->with('success', 'Post deleted successfully');
-}
+            return redirect()->route('admin.myblogs')->with('success', 'Post deleted successfully');
+           }
 
 }

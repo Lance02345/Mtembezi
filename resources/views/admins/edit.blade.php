@@ -19,7 +19,7 @@
                     @endif
                     <form action="{{ route('admin.update', ['id' => $post->id]) }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT') <!-- Use the PUT method for updates -->
+                        @method('PUT') 
                         <div class="form-group">
                             <strong><label for="title">Title</label></strong>
                             <input type="text" class="form-control" id="title" name="title" value="{{ $post->title }}" required>

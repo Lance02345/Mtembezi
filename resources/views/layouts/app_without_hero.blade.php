@@ -24,11 +24,6 @@
             background-color: white;
         }
 
-        .hero-section {
-            background: url('{{ asset('storage/images/hero1.jpg') }}') center/cover no-repeat;
-            color: white; /* Text color on the hero section */
-            padding: 100px 0; /* Adjust padding as needed */
-        }
         
     </style>
 
@@ -49,6 +44,15 @@
                 <a class="nav-link" href="{{ route('index') }}" >Home</a>
             </li>
             </ul>
+            <!-- search bar -->
+            <form class="form-inline mx-auto" action="{{ route('search') }}" method="GET">
+        <div class="input-group">
+            <input type="text" class="form-control" name="query" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+        </form>
          </div>
 
       <!-- logged in user drop down  settings -->
@@ -89,7 +93,7 @@
             </div>
         </li>
         @else
-            <!-- Display login and sign-u links if user is not logged in -->
+            <!-- Display login and sign-uo links if user is not logged in -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
             </li>

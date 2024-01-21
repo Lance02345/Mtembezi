@@ -39,7 +39,7 @@
        <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
         <a class="navbar-brand" ><img src="{{ asset('storage/images/traveller_2517614.png')}}" 
-            style=" width:55px; height:50px;vertical-align: middle;padding-left: 0px;padding-right: 0px; padding-top: 0px; border-style: none; " ><span style="color:#d4af37">Msa</span><span>firi</span></a>
+            style=" width:55px; height:50px;vertical-align: middle;padding-left: 0px;padding-right: 0px; padding-top: 0px; border-style: none; " ><span style="color:yellow">Msa</span><span>firi</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -49,6 +49,15 @@
                 <a class="nav-link" href="{{ route('index') }}" >Home</a>
             </li>
         </ul>
+           <!-- search bar -->
+        <form class="form-inline mx-auto" action="{{ route('search') }}" method="GET">
+        <div class="input-group">
+            <input type="text" class="form-control" name="query" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+        </form>
      </div>
 
     <!-- logged in user drop down  settings -->
@@ -89,7 +98,7 @@
             </div>
         </li>
         @else
-            <!-- Display login and sign-u links if user is not logged in -->
+            <!-- Display login and sign-up links if user is not logged in -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
             </li>
@@ -102,7 +111,7 @@
 
      <!-- Hero section -->
 <div class="hero-section text-center">
-    <h1>Welcome to <span style="color:#d4af37">Msa</span><span>firi</span> Blogs</h1>
+    <h1>Welcome to <span style="color:yellow">Msa</span><span>firi</span> Blogs</h1>
     <p>Discover exciting stories and adventures of travellers shared by our community.</p>
        
        <!-- Weather Banner -->
