@@ -10,10 +10,10 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(4); // Paginate the posts with 4 items per page
 
-        $apiKey = 'u7VZRYGrAxiQu81BN4hsCdzfAU1Z5uIF';
-        $cityKey = '224758'; // Replace with your actual city key
+        $apiKey = 'SkkwaWYTVoHBiGAWold1zn5NcUmuWBXe';
+        $cityKey = '224758';
 
         $response = \Illuminate\Support\Facades\Http::withOptions(['verify' => false])->get("https://dataservice.accuweather.com/currentconditions/v1/{$cityKey}?apikey={$apiKey}");
 

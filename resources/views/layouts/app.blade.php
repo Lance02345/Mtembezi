@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +8,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    <script src="{{ asset('js/weather.js') }}"></script>
+    <script src="{{ asset('assets/weather.js') }}"></script>
    
    
    <style>
@@ -38,19 +37,19 @@
 </head>
 <body>
        <!-- Navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-    <a class="navbar-brand" ><img src="{{ asset('storage/images/traveller_2517614.png')}}" 
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+        <a class="navbar-brand" ><img src="{{ asset('storage/images/traveller_2517614.png')}}" 
             style=" width:55px; height:50px;vertical-align: middle;padding-left: 0px;padding-right: 0px; padding-top: 0px; border-style: none; " ><span style="color:#d4af37">Msa</span><span>firi</span></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('index') }}" >Home</a>
             </li>
         </ul>
-    </div>
+     </div>
 
     <!-- logged in user drop down  settings -->
     <div class="navbar-nav">
@@ -70,12 +69,17 @@
                     @if(auth()->user()->isAdmin())
                     <a class="dropdown-item" href="{{ route('admin.createBlog') }}">Add Blog</a>
                     <a class="dropdown-item" href="{{ route('admin.myblogs') }}">My Blogs</a>
+                    
+                    @if(auth()->user()->isAdmin() && auth()->user()->id == 1)
+                    <a class="dropdown-item" href="{{ route('admin.blogRequests') }}">Blog Requests</a>
                     <div class="dropdown-divider"></div>
+                   @endif       
+
                 @else
-                    <a class="dropdown-item" href="#">Request to Blog</a>
+                    <a class="dropdown-item" href="{{ route('user.sendRequest') }}">Request to Blog</a>
                     <div class="dropdown-divider"></div>
                 @endif
-                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
                 </a>

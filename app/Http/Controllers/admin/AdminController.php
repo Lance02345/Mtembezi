@@ -7,6 +7,10 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Models\BlogRequest;
+use App\Models\User;
+
+
 
 
 
@@ -143,6 +147,39 @@ public function edit($id)
         $post->save();
 
         return redirect()->route('admin.myblogs')->with('success', 'Post updated successfully');
+    }
+
+    //see blog requests from normal users
+    public function blogRequests()
+    {
+        // Fetch blog requests and pass them to the view
+        $blogRequests = BlogRequest::all();
+        
+        return view('admins.blogRequests', compact('blogRequests'));
+    }
+
+    public function approveRequest($id)
+    {
+        $request = BlogRequest::findOrFail($id);
+        
+        // Update the user's role to 'admin'
+        $user = User::findOrFail($request->user_id);
+        $user->update(['role' => 'admin']);
+
+        // Delete the blog request record
+        $request->delete();
+
+        return redirect()->route('admin.blogRequests')->with('success', 'Request approved successfully.');
+    }
+
+    public function declineRequest($id)
+    {
+        $request = BlogRequest::findOrFail($id);
+
+        // Delete the blog request record
+        $request->delete();
+
+        return redirect()->route('admin.blogRequests')->with('success', 'Request declined.');
     }
 
 

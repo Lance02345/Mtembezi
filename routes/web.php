@@ -5,6 +5,10 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\BlogRequestController;
+use App\Http\Controllers\ProfileController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +23,9 @@ use App\Http\Controllers\admin\AdminController;
 
 Route :: get ('/',  [BlogController::class, 'index'])->name('index');
 Route::get('/weather', 'WeatherController@getWeather')->name('weather');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
 
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -29,9 +36,9 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth:web'], 'prefix' => 'user', 'as' => 'user.'], function () {
+    Route::get('/send-request', [BlogRequestController::class, 'sendRequest'])->name('sendRequest'); 
 
-    
 });
 
 
@@ -43,6 +50,9 @@ Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.
     Route::get( '/blogs/{id}/edit', [AdminController::class, 'edit'])->name('editform');
     Route::put('/blogs/{id}', [AdminController::class, 'update'])->name('update');
     Route::delete('/blogs/{id}', [AdminController::class, 'destroy'])->name('destroy');
+    Route::get('/admin/blog-requests', [AdminController::class, 'blogRequests'])->name('blogRequests');
+    Route::post('/admin/approve-request/{id}', [AdminController::class, 'approveRequest'])->name('approveRequest');
+    Route::post('/admin/decline-request/{id}', [AdminController::class, 'declineRequest'])->name('declineRequest');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
