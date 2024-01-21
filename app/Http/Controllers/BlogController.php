@@ -12,7 +12,14 @@ class BlogController extends Controller
     {
         $posts = Post::all();
 
-        return view('index', ['posts' => $posts]);
+        $apiKey = 'u7VZRYGrAxiQu81BN4hsCdzfAU1Z5uIF';
+        $cityKey = '224758'; // Replace with your actual city key
+
+        $response = \Illuminate\Support\Facades\Http::withOptions(['verify' => false])->get("https://dataservice.accuweather.com/currentconditions/v1/{$cityKey}?apikey={$apiKey}");
+
+        $weatherData = $response->json();
+
+        return view('index', ['posts' => $posts, 'weatherData' => $weatherData]);
     }
 
 }

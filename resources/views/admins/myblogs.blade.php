@@ -38,12 +38,13 @@
 
                     <!-- Options for edit and delete -->
                     <div class="mt-3">
-                        <a href="" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="" method="post" class="d-inline">
+                    <a href="{{ route('admin.editform', ['id' => $blog->id]) }}" class="btn btn-primary btn-sm" style="background-color: #013220;">Edit</a>
+                        <form action="{{ route('admin.destroy', ['id' => $blog->id]) }}" method="post" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
+
                     </div>
                 </div>
             </div>

@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Msafiri</title>
 
-    <!-- Include Bootstrap CSS (adjust the path if necessary) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    <!-- Add your custom styles if needed -->
-    <style>
-        /* Custom styles for the navbar */
+    <script src="{{ asset('js/weather.js') }}"></script>
+   
+   
+   <style>
+        /* Custom styles for the navbar  */
         nav {
             background-color: #013220
         }
@@ -30,12 +31,13 @@
             color: white; /* Text color on the hero section */
             padding: 100px 0; /* Adjust padding as needed */
         }
+        
     </style>
 
     
 </head>
 <body>
-
+       <!-- Navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
     <a class="navbar-brand" ><img src="{{ asset('storage/images/traveller_2517614.png')}}" 
             style=" width:55px; height:50px;vertical-align: middle;padding-left: 0px;padding-right: 0px; padding-top: 0px; border-style: none; " ><span style="color:#d4af37">Msa</span><span>firi</span></a>
@@ -49,6 +51,8 @@
             </li>
         </ul>
     </div>
+
+    <!-- logged in user drop down  settings -->
     <div class="navbar-nav">
     @if (Auth::check())
     <li class="nav-item dropdown">
@@ -81,7 +85,7 @@
             </div>
         </li>
         @else
-            <!-- Display login and sign-up links if user is not logged in -->
+            <!-- Display login and sign-u links if user is not logged in -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
             </li>
@@ -91,15 +95,27 @@
         @endif
     </div>
 </nav>
+
+     <!-- Hero section -->
 <div class="hero-section text-center">
     <h1>Welcome to <span style="color:#d4af37">Msa</span><span>firi</span> Blogs</h1>
     <p>Discover exciting stories and adventures of travellers shared by our community.</p>
+       
+       <!-- Weather Banner -->
+    <div id="weather-banner">
+                @if(isset($weatherData[0]))
+                    Current Weather in Nairobi : {{ $weatherData[0]['WeatherText'] }}, Temperature: {{ $weatherData[0]['Temperature']['Metric']['Value'] }}°C
+                @else
+                    Unable to fetch weather data.
+                @endif
+            </div>
 </div>
 
 <div class="container mt-4">
     @yield('content')
 </div>
 
+          <!-- footer -->
 <footer class="mt-5">
     <div class="container">
         <div class="row">

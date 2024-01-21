@@ -18,6 +18,8 @@ use App\Http\Controllers\admin\AdminController;
 */
 
 Route :: get ('/',  [BlogController::class, 'index'])->name('index');
+Route::get('/weather', 'WeatherController@getWeather')->name('weather');
+
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -38,6 +40,9 @@ Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.
     Route::get('/add-blog', [AdminController::class, 'create'])->name('createBlog');
     Route::post('/store', [AdminController::class, 'store'])->name('store');
     Route::get('/myblogs', [AdminController::class, 'myblogs'])->name('myblogs');
+    Route::get( '/blogs/{id}/edit', [AdminController::class, 'edit'])->name('editform');
+    Route::put('/blogs/{id}', [AdminController::class, 'update'])->name('update');
+    Route::delete('/blogs/{id}', [AdminController::class, 'destroy'])->name('destroy');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
