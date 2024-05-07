@@ -3,6 +3,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasFactory;
 
     protected $fillable = [
         'name', 
@@ -35,7 +37,7 @@ class User extends Authenticatable
 
         // Set role automatically based on user's ID
         static::creating(function ($user) {
-            $user->role = $user->id <= 5 ? 'admin' : 'user';
+            $user->role = $user->id <= 1 ? 'admin' : 'user';
         });
     }
 
